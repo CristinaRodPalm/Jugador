@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - @localhost" uuid="e3ce8a12-5a58-4be8-8d36-cab1f6cbe54d">
+    <database-info product="MySQL" version="5.6.25-0ubuntu0.15.04.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <schema name="" catalog="Blog"/>
+    <table name="BLOG" schema="" catalog="Blog" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="handle" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fk_blog_user_id" columns="user_id" ref-table="JHI_USER" ref-schema="" ref-catalog="Blog" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="fk_entry_blog_id" table="ENTRY" schema="" catalog="Blog" columns="blog_id"/>
+      <index name="fk_blog_user_id" unique="false" columns="user_id"/>
+    </table>
+    <table name="DATABASECHANGELOG" schema="" catalog="Blog" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="AUTHOR" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="FILENAME" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="DATEEXECUTED" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="ORDEREXECUTED" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="EXECTYPE" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <column name="MD5SUM" sqlType="VARCHAR" precision="35" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="COMMENTS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TAG" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="LIQUIBASE" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CONTEXTS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="LABELS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+    </table>
+    <table name="DATABASECHANGELOGLOCK" schema="" catalog="Blog" type="TABLE">
+      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="LOCKED" sqlType="BIT" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="LOCKGRANTED" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="LOCKEDBY" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="ID"/>
+    </table>
+    <table name="ENTRY" schema="" catalog="Blog" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="content" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="date" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" version="true"/>
+      <column name="blog_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fk_entry_blog_id" columns="blog_id" ref-table="BLOG" ref-schema="" ref-catalog="Blog" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="fk_entry_tag_tag_id" table="ENTRY_TAG" schema="" catalog="Blog" columns="entrys_id"/>
+      <index name="fk_entry_blog_id" unique="false" columns="blog_id"/>
+    </table>
+    <table name="ENTRY_TAG" schema="" catalog="Blog" type="TABLE">
+      <column name="tags_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="entrys_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="entrys_id,tags_id"/>
+      <foreign-key name="fk_entry_tag_tag_id" columns="entrys_id" ref-table="ENTRY" ref-schema="" ref-catalog="Blog" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_tag_tag_entry_id" columns="tags_id" ref-table="TAG" ref-schema="" ref-catalog="Blog" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_tag_tag_entry_id" unique="false" columns="tags_id"/>
+    </table>
+    <table name="JHI_AUTHORITY" schema="" catalog="Blog" type="TABLE">
+      <column name="name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="name"/>
+      <exported-key name="fk_authority_name" table="JHI_USER_AUTHORITY" schema="" catalog="Blog" columns="authority_name"/>
+    </table>
+    <table name="JHI_PERSISTENT_AUDIT_EVENT" schema="" catalog="Blog" type="TABLE">
+      <column name="event_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="principal" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="event_date" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="event_type" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="event_id"/>
+      <exported-key name="fk_evt_pers_audit_evt_data" table="JHI_PERSISTENT_AUDIT_EVT_DATA" schema="" catalog="Blog" columns="event_id"/>
+      <index name="idx_persistent_audit_event" unique="false" columns="principal,event_date"/>
+    </table>
+    <table name="JHI_PERSISTENT_AUDIT_EVT_DATA" schema="" catalog="Blog" type="TABLE">
+      <column name="event_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="value" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="event_id,name"/>
+      <foreign-key name="fk_evt_pers_audit_evt_data" columns="event_id" ref-table="JHI_PERSISTENT_AUDIT_EVENT" ref-schema="" ref-catalog="Blog" ref-columns="event_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="idx_persistent_audit_evt_data" unique="false" columns="event_id"/>
+    </table>
+    <table name="JHI_PERSISTENT_TOKEN" schema="" catalog="Blog" type="TABLE">
+      <column name="series" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="token_value" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="token_date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="ip_address" sqlType="VARCHAR" precision="39" scale="0" nullable="true" jdbcType="12"/>
+      <column name="user_agent" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="series"/>
+      <foreign-key name="fk_user_persistent_token" columns="user_id" ref-table="JHI_USER" ref-schema="" ref-catalog="Blog" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_user_persistent_token" unique="false" columns="user_id"/>
+    </table>
+    <table name="JHI_USER" schema="" catalog="Blog" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="login" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="PASSWORD" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="first_name" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="last_name" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="activated" sqlType="BIT" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="lang_key" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="activation_key" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="reset_key" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="created_by" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="created_date" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="reset_date" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="last_modified_by" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="last_modified_date" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_blog_user_id" table="BLOG" schema="" catalog="Blog" columns="user_id"/>
+      <exported-key name="fk_user_persistent_token" table="JHI_PERSISTENT_TOKEN" schema="" catalog="Blog" columns="user_id"/>
+      <exported-key name="fk_user_id" table="JHI_USER_AUTHORITY" schema="" catalog="Blog" columns="user_id"/>
+      <index name="email" unique="true" columns="email"/>
+      <index name="idx_user_email" unique="true" columns="email"/>
+      <index name="idx_user_login" unique="true" columns="login"/>
+      <index name="login" unique="true" columns="login"/>
+    </table>
+    <table name="JHI_USER_AUTHORITY" schema="" catalog="Blog" type="TABLE">
+      <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="authority_name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="user_id,authority_name"/>
+      <foreign-key name="fk_authority_name" columns="authority_name" ref-table="JHI_AUTHORITY" ref-schema="" ref-catalog="Blog" ref-columns="name" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_user_id" columns="user_id" ref-table="JHI_USER" ref-schema="" ref-catalog="Blog" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_authority_name" unique="false" columns="authority_name"/>
+    </table>
+    <table name="TAG" schema="" catalog="Blog" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_tag_tag_entry_id" table="ENTRY_TAG" schema="" catalog="Blog" columns="tags_id"/>
+    </table>
+  </data-source>
+</component>
